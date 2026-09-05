@@ -2,11 +2,21 @@ import numpy as np
 
 
 class LeakyRelu:
-    def __init__(self,alpha=0.01):
+    def __init__(self,alpha : float = 0.01, prelu : bool = False):
         """Alpha is how much to allow those DAMN negatives to retain their values"""
 
+        self.alpha_trainable = prelu
         self.input = None
         self.alpha = alpha
+        self.alpha_gradient = None
+
+    @property
+    def parameters(self):
+        return {'alpha' : self.alpha}
+
+    @property
+    def gradients(self):
+        return {'alpha' : self.alpha_gradient}
 
     def forward(self, inputs : np.ndarray) -> np.ndarray:
         """LeakyRelu(x) = max(ax,x)"""
