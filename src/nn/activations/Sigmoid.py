@@ -22,4 +22,3 @@ class Sigmoid:
 
         out_gradient = incoming_gradient * derivative
         return out_gradient
-    
