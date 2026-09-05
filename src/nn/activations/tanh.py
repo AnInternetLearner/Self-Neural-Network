@@ -3,7 +3,7 @@ import numpy as np
 class Tanh:
     def __init__(self):
         """Output this time"""
-        
+
         self.output = None
 
     def forward(self,inputs : np.ndarray) -> np.ndarray:
