@@ -21,4 +21,8 @@ class LeakyRelu:
 
         out_grad = incoming_gradient.copy()
         out_grad[self.input <= 0] *= self.alpha
+
+        if self.alpha_trainable:
+            self.alpha_gradient = np.sum(incoming_gradient[self.input <= 0] * self.input[self.input <= 0])
+
         return out_grad
