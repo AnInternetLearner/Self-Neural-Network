@@ -9,7 +9,7 @@ venv/
 
 # Environment variables / secrets
 .env
-
+.idea
 # Testing/build artifacts
 .pytest_cache/
 dist/
