@@ -26,9 +26,9 @@ def error_shape_check(shape):
     if not isinstance(shape, (tuple, list)):
         raise InitializerError(f"{shape} must be a tuple/list")
 
-    if len(shape) < 2:
+    if len(shape) < 1:
         raise InitializerError(
-            f"{shape} Is not a valid shape for weight Initializers, Please try use a 2D array or a greater Dimensional Tensor")
+            f"{shape} Is not a valid shape for weight Initializers, Please try use a 1D array or a greater Dimensional Tensor")
 
     if any(not isinstance(dim, int) for dim in shape):
         raise InitializerError("All shape dimensions must be integers")
@@ -128,10 +128,12 @@ class Ones:
 
 
 class Constant:
-    def __call__(self, shape, value: float = 0.0):
+    def __init__(self, value: float = 0.0):
+        self.value = value
+    def __call__(self, shape):
         """Returns a matrix of {value} with shape {shape}"""
         error_shape_check(shape)
-        return np.full(shape, value)
+        return np.full(shape, self.value)
 
 
 # Basic Ended ---------------
