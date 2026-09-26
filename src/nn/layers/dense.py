@@ -2,9 +2,12 @@ import inspect
 import numpy as np
 from src.nn.initializers.dynamic_initializer import Initializer
 from activation import Activation
+
+
 class DenseError(Exception):
     """Very cool specific error to dense.py"""
     pass
+
 
 def initializer_param_check(initializer_object):
     if not callable(initializer_object):
@@ -22,12 +25,14 @@ def initializer_param_check(initializer_object):
             "Initializer must be a method belonging to Initializer"
         )
 
+
 class Dense:
     """OK GENERAL RULE NOW, WE FOLLOW (output, input) FOR WEIGHTS GOT IT?, ok cool."""
+
     def __init__(self, input_dim: int,
                  output_dim: int,
-                 activation: str ='relu',
-                 use_bias: bool =True,
+                 activation: str = 'relu',
+                 use_bias: bool = True,
                  weights=None,
                  bias=None):
 
@@ -52,7 +57,7 @@ class Dense:
             self.activation = None
         self.input = None
 
-    def forward(self,inputs : np.ndarray) -> np.ndarray:
+    def forward(self, inputs: np.ndarray) -> np.ndarray:
         self.input = inputs
         z = inputs @ self.weights.T
         if self.bias is not None:
@@ -61,7 +66,7 @@ class Dense:
             return self.activation.forwards(z)
         return z
 
-    def backward(self,incoming_gradient : np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    def backward(self, incoming_gradient: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
         if self.activation is not None:
             dz = self.activation.backwards(incoming_gradient)
         else:
@@ -71,5 +76,3 @@ class Dense:
         dx = dz @ self.weights
 
         return dx, dw, db
-
-
